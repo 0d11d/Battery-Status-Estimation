@@ -13,11 +13,6 @@ from pandas.core.common import SettingWithCopyWarning
 warnings.simplefilter(action="ignore", category=SettingWithCopyWarning)
 import tensorflow as tf
 
-from sklearn.metrics import r2_score, mean_absolute_error,accuracy_score,mean_squared_error, mean_absolute_percentage_error
-from matplotlib import pyplot as plt
-import matplotlib.colors as mcolors
-from matplotlib.colors import ListedColormap
-import seaborn as sns
 import re
 
 import sys 
