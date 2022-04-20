@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="div2">
+
+        <form action="/predict" method = "POST">
+        <br>Mode<select name="Mode">
+            <option value="Parking">P</option>
+           <option value="Driving">D</option>
+          </select></br>
+  
+         <br>Weather <select name="Weather">
+           <option value="normal">Normal</option>
+           <option value="cold">Cold</option>
+           <option value="hot">Hot</option>
+         </select></br>
+
+         <br>Miles you have driven <input type = "number" name = "Miles" min="0" max="50000"/></br>
+         <br>Battery percentage <input type = "number" name = "Battery" min="0" max="100"/></br>
+         <br><input type = "submit" value = "Predict" /></br>
+        </form>
+
+        <br />
+
+
+      </div>
+    </div>
+  </body>
+</html>

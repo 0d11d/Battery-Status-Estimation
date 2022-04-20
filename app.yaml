@@ -1,0 +1,16 @@
+runtime: python38
+
+
+env_variables:
+  BUCKET_NAME: "first-api-220419"
+
+entrypoint: gunicorn -b :$PORT main:app
+
+
+instance_class: F2
+
+resources:
+  cpu: 2
+  memory_gb: 0.6
+  disk_size_gb: 5
+

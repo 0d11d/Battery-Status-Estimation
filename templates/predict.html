@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Creating Real-Time Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>   
+
+</head>
+<body>
+   <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+if (!!window.EventSource) {
+  var source = new EventSource('/predict');
+  source.onmessage = function(event) {
+    $("#data").text(event.data);
+  }
+}
+</script>
+</body>
+</html>
