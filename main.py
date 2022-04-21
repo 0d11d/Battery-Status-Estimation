@@ -18,21 +18,15 @@ import re
 import sys 
 print(sys.version)
 
-global data, nominal_capacity
-
-data = pd.read_csv("test.csv", index_col=False)
-data_timestamp = data.set_index("timestamp")
-df_nominal = pd.read_csv("nominal capacity table.csv")
-
-
-
 # create an instance of Flask
 
 app = Flask(__name__, template_folder='templates')
 
   
 def get_data(mode, weather, mile):
-    
+  
+    data = pd.read_csv("test.csv", index_col=False)
+    data_timestamp = data.set_index("timestamp")
     df_test = data_timestamp
     print(mode)
     print(weather)
@@ -140,6 +134,7 @@ def predict(mode, weather, mile, battery):
     df_demo["environment_temperature"] = df_demo["environment_temperature"].transform(lambda x: round((x*(70-2)+2),0))
     df_demo["consumption_per_second"] = df_demo["consumption_per_second"].transform(lambda x: x*(4e-06+0.00113)-0.00113)
 
+    df_nominal = pd.read_csv("nominal capacity table.csv")
     nominal_capacity = cn(df_demo["cycle"][0], df_demo["environment_temperature"][0], df_nominal)
     
     # add nominal capacity, SOC, plugin duration, and remain_mileage
