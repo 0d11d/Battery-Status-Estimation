@@ -134,14 +134,13 @@ def predict(mode, weather, mile, battery):
     df_demo["environment_temperature"] = df_demo["environment_temperature"].transform(lambda x: round((x*(70-2)+2),0))
     df_demo["consumption_per_second"] = df_demo["consumption_per_second"].transform(lambda x: x*(4e-06+0.00113)-0.00113)
 
-    df_nominal = pd.read_csv("nominal capacity table.csv")
-    nominal_capacity = cn(df_demo["cycle"][0], df_demo["environment_temperature"][0], df_nominal)
+    nominal_capacity = (res.max())*2
     
     # add nominal capacity, SOC, plugin duration, and remain_mileage
 
-    df_demo["SOC%"] = (df_demo["capacity"]*100/nominal_capacity).round(0)
-    df_demo["plugin_duration"] = (nominal_capacity-df_demo["capacity"])/1.5
-    df_demo["remain_mileage"] = (df_demo["capacity"]*500/2).round(0)
+    df_demo["SOC%"] = (df_demo["predict_capacity"]*100/nominal_capacity).round(0)
+    df_demo["plugin_duration"] = (nominal_capacity-df_demo["predict_capacity"])/1.5
+    df_demo["remain_mileage"] = (df_demo["predict_capacity"]*500/2).round(0)
     
     # Adjust abnormal plugin_duration results
     df_demo.loc[df_demo["plugin_duration"]<0, "plugin_duration"]=0
@@ -172,7 +171,8 @@ def predict(mode, weather, mile, battery):
     else:
         demo1 = demo1.loc[(demo1["type"]== "discharge") & (demo1["SOC%"] < battery)]
     
-    prediction = demo1[[ "SOC%", "plugin_duration_realtime","remain_mileage" ]]
+    res_display = demo1[[ "SOC%", "plugin_duration_realtime","remain_mileage" ]]
+    prediction = res_display.drop_duplicates(subset="SOC%", keep='last')
     
     return prediction
     
@@ -195,21 +195,18 @@ def index():
         
         try:
             prediction = predict(mode, weather, int(mile), int(battery))
- 
+            result = prediction.to_dict('record')
             
             def generator():
             
-                yield '\n\n\n\n\n\n\n\nStart!<br><br><br>'
-                
-                for i in range(len(prediction)):
+                yield '\n\n\n\n\n\n\n\nStart!<br><br><br>'                
+                for i in result:
                     
                     yield "<br>\n\n\n\n{0}%\n\n\n\n{1} remaning\n\n\n\n{2}mi\n\n\n\n <br>".format(
-                        prediction.iloc[i, 0], prediction.iloc[i, 1], prediction.iloc[i, 2])
-                    time.sleep(1)
-                
-                yield 'Prediction close\n\n'
-                
-                
+                        int(i["SOC%"]), i["plugin_duration_realtime"], i["remain_mileage"])
+                    time.sleep(1)             
+                yield '<br><br><br>Prediction close\n\n'          
+              
             return Response(generator(), mimetype='text/html')
         
         except ValueError:
@@ -217,9 +214,6 @@ def index():
         pass
     pass
         
-
- 
-    
     
 if __name__ == '__main__':
     app.run(debug=True)
