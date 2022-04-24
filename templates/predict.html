@@ -4,20 +4,43 @@
     <meta charset="UTF-8">
     <title>Creating Real-Time Prediction</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>   
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
 
 </head>
-<body>
-   <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
-if (!!window.EventSource) {
-  var source = new EventSource('/predict');
-  source.onmessage = function(event) {
-    $("#data").text(event.data);
-  }
-}
-</script>
-</body>
+
+
+
+  <body>
+    <div class="container1">
+        <div class="div1">
+            {% block content %}
+            <h1>{% block title %} Battery status {% endblock %}</h1>
+            
+                <div class="div2" style="font-size: 2rem">
+                    <br>
+                     <div id="data" >Start Prediction</div>
+
+                         {%- for s,t,m in data: %}
+                         {% set bar = s %}
+                          <script>
+                            $("#data").text("---- Battery: {{s|safe}}% ---- Charging time: {{t}} ---- remaining {{m}}mi")
+                          </script>
+   
+                         {% endfor -%}
+
+
+                     <div id="data" ><br>Prediction Finished</br></div>
+
+                    </br>
+                 </div>
+             {% endblock %}
+        </div>
+
+  </body>
 </html>
+
+
+
+
