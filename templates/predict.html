@@ -1,43 +1,37 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Creating Real-Time Prediction</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Creating Real-Time Prediction</title>
+    <link rel="stylesheet" href="static/styles/predict.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
 
 </head>
+<body>
+    <nav>
+        <a><h1>Battery Status</h1></a>
+    </nav>
+
+    <div id="image">
+            <br><img src="static/car.png" alt="EV">
+    </div>
+       
+    <div id="data" >
+        {%+ for s,t,m in data: %} 
+            <script>
+                $("#data").html("<br>Battery: {{s}} % </br>"
+                    +"<br>Charging time: {{t}}</br>"
+                    +"<br>Remaining {{m}}mi</br>")
+            </script>
+        {% endfor -%}
+    </div>    
 
 
-
-  <body>
-    <div class="container1">
-        <div class="div1">
-            {% block content %}
-            <h1>{% block title %} Battery status {% endblock %}</h1>
-            
-                <div class="div2" style="font-size: 2rem">
-                    <br>
-                     <div id="data" >Start Prediction</div>
-
-                         {%- for s,t,m in data: %}
-                         {% set bar = s %}
-                          <script>
-                            $("#data").text("---- Battery: {{s|safe}}% ---- Charging time: {{t}} ---- remaining {{m}}mi")
-                          </script>
-   
-                         {% endfor -%}
-
-
-                     <div id="data" ><br>Prediction Finished</br></div>
-
-                    </br>
-                 </div>
-             {% endblock %}
-        </div>
-
+</div>
   </body>
 </html>
 
