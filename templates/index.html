@@ -1,47 +1,48 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>EVBattery</title>
+    <link rel="stylesheet" href="static/styles/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  </head>
 
 
+</head>
+<body>
+    <nav>
+        <a href="/"><h1>Vehicle Status</h1></a>
+    </nav>
 
-  <body>
-    <div class="container">
-      <div class="div1">
 
+        <div id='batteryNav'>
+            <form action="/predict" method = "POST">
+                <br>Mode <select name="Mode">
+                        <option value="Parking">P</option>
+                        <option value="Driving">D</option>
+                        </select></br>
+                <br>Weather <select name="Weather">
+                            <option value="normal">Normal</option>
+                            <option value="cold">Cold</option>
+                            <option value="hot">Hot</option>
+                            </select></br>
+                <br>Miles you have driven  0 <input type = "range" value="2000" name = "Miles" min="0" max="50000" class="slider" onchange="updateTextInput1(this.value);"/> 50000
+                                              <input type="text" id="textInput1" value="">
+                </br>
+                <br>Battery percentage%   0 <input type = "range" value="50" name = "Battery" min="0" max="100" class="slider" onchange="updateTextInput2(this.value);"/> 100
+                                            <input type="text" id="textInput2" value="">
+                </br>
+                <br><input type = "submit" value = "Predict" /></br>
+            </form>
+        </div>
 
-          {% block content %}
-          <h1>{% block title %} Vehicle status {% endblock %}</h1>
-          
+        
+    <script>function updateTextInput1(val1) {document.getElementById('textInput1').value=val1;}</script>
+    <script>function updateTextInput2(val2) {document.getElementById('textInput2').value=val2;}</script>
+    
 
-        <form action="/predict" method = "POST">
-        <br>Mode<select name="Mode">
-            <option value="Parking">P</option>
-           <option value="Driving">D</option>
-          </select></br>
-  
-         <br>Weather <select name="Weather">
-           <option value="normal">Normal</option>
-           <option value="cold">Cold</option>
-           <option value="hot">Hot</option>
-         </select></br>
-
-         <br>Miles you have driven <input type = "number" name = "Miles" min="0" max="50000"/></br>
-         <br>Battery percentage <input type = "number" name = "Battery" min="0" max="100"/></br>
-         <br><input type = "submit" value = "Predict" /></br>
-        </form>
-
-        <br />
-        {% endblock %}
-
-      </div>
-    </div>
-  </body>
+</body>
 </html>
