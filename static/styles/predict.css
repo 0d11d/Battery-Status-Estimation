@@ -1,0 +1,50 @@
+html {
+    font-family:  "Exo", sans-serif;
+}
+body {
+    margin:  2em;
+    padding: 0;
+    background-color: #3e4444;
+}
+nav {
+    background-color: #45544b;
+    color:  white;
+    padding: 1em 0 1em 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+h1 {
+    margin:  0;
+    padding-left: 1em;
+    display: inline-block;
+}
+
+
+#data{
+    padding: 2em;
+    font-weight: bold;
+    font-size: 2em;
+    color:  white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    text-align-last: left;
+    letter-spacing: 5px
+}
+
+#image{
+    padding: 1em;
+    display: flex;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    text-align-last: left;
+}
+
+
+
